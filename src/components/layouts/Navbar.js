@@ -63,7 +63,7 @@ function Navbar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Cari catatan..."
+              placeholder="Search notes..."
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>

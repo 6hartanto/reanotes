@@ -3,6 +3,7 @@
 import React from 'react';
 import { getInitialData } from './utils/index';
 import Navbar from './components/layouts/Navbar';
+import NoteInput from './components/NoteInput';
 import NoteList from './components/NoteList';
 
 class App extends React.Component {
@@ -13,6 +14,7 @@ class App extends React.Component {
     };
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleDelete(id) {
@@ -20,10 +22,17 @@ class App extends React.Component {
     this.setState({ notes });
   }
 
+  handleAdd({ title, body }) {
+    this.setState((prevState) => ({
+      notes: [...prevState.notes, { id: Date.now(), title, body }],
+    }));
+  }
+
   render() {
     return (
       <div>
         <Navbar />
+        <NoteInput onSubmit={this.handleAdd} />
         <NoteList notes={this.state.notes} onDelete={this.handleDelete} />
       </div>
     );

@@ -11,7 +11,7 @@ function NoteList({ notes, onDelete }) {
   return (
     <Container>
       <Header variant="h5" component="h5">
-        Catatan Aktif
+        Active Notes
       </Header>
       <Box
         display="flex"

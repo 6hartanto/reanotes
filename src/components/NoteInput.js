@@ -16,8 +16,11 @@ class NoteInput extends React.Component {
       body: '',
     };
 
+    const characterLimit = 50;
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.characterLimit = characterLimit;
   }
 
   handleChange(event) {
@@ -56,9 +59,11 @@ class NoteInput extends React.Component {
           label="Note Title"
           variant="filled"
           margin="normal"
+          inputProps={{ maxLength: this.characterLimit }}
           required
           fullWidth
           value={this.state.title}
+          helperText={`${this.state.title.length} / ${this.characterLimit}`}
           onChange={this.handleChange}
         />
         <TextField

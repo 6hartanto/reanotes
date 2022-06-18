@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { getInitialData } from './utils/index';
+import Navbar from './components/layouts/Navbar';
 import NoteList from './components/NoteList';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   }, []);
   return (
     <div>
+      <Navbar />
       <NoteList notes={notes} />
     </div>
   );

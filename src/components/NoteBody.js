@@ -5,8 +5,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import DeleteButton from './DeleteButton';
 
-function NoteBody({ title, body }) {
+function NoteBody({
+  title, body, id, onDelete,
+}) {
   return (
     <Card
       sx={{ maxWidth: 345, margin: '8px' }}
@@ -21,7 +24,7 @@ function NoteBody({ title, body }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
+        <DeleteButton id={id} onDelete={onDelete} />
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>

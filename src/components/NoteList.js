@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import NoteBody from './NoteBody';
 
 // eslint-disable-next-line react/prop-types
-function NoteList({ notes }) {
+function NoteList({ notes, onDelete }) {
   return (
     <Container>
       <Header variant="h5" component="h5">
@@ -24,7 +24,7 @@ function NoteList({ notes }) {
         {
           // eslint-disable-next-line react/prop-types
           notes.map((note) => (
-            <NoteBody key={note.id} {...note} />
+            <NoteBody key={note.id} id={note.id} onDelete={onDelete} {...note} />
           ))
         }
       </Box>

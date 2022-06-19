@@ -14,6 +14,8 @@ class NoteInput extends React.Component {
     this.state = {
       title: '',
       body: '',
+      createdAt: new Date(),
+      archived: false,
     };
 
     const characterLimit = 50;
@@ -30,10 +32,13 @@ class NoteInput extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { title, body } = this.state;
-    // validate title and body
     if (title && body) {
       // eslint-disable-next-line react/prop-types
-      this.props.onSubmit({ title, body });
+      this.props.onSubmit(
+        {
+          title, body, createdAt: this.state.createdAt, archived: this.state.archived,
+        },
+      );
       this.setState({ title: '', body: '' });
     } else {
       // eslint-disable-next-line no-alert

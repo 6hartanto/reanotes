@@ -7,7 +7,10 @@ import Box from '@mui/material/Box';
 import NoteBody from './NoteBody';
 
 // eslint-disable-next-line react/prop-types
-function NoteList({ notes, onDelete }) {
+function NoteList({
+  // eslint-disable-next-line react/prop-types
+  notes, onDelete, onArchive, onActivate,
+}) {
   return (
     <Container>
       <Header variant="h5" component="h5">
@@ -24,7 +27,43 @@ function NoteList({ notes, onDelete }) {
         {
           // eslint-disable-next-line react/prop-types
           notes.map((note) => (
-            <NoteBody key={note.id} id={note.id} onDelete={onDelete} {...note} />
+            // display if note is not archived
+            !note.archived && (
+              <NoteBody
+                key={note.id}
+                note={note}
+                onDelete={onDelete}
+                onArchive={onArchive}
+                {...note}
+              />
+            )
+          ))
+        }
+      </Box>
+      <Header variant="h5" component="h5">
+        Archived Notes
+      </Header>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        sx={{
+          maxWidth: '100%',
+        }}
+      >
+        {
+          // eslint-disable-next-line react/prop-types
+          notes.map((note) => (
+            // display if note is archived
+            note.archived && (
+              <NoteBody
+                key={note.id}
+                note={note}
+                onDelete={onDelete}
+                onActivate={onActivate}
+                {...note}
+              />
+            )
           ))
         }
       </Box>

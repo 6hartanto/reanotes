@@ -14,6 +14,8 @@ class App extends React.Component {
     };
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleArchive = this.handleArchive.bind(this);
+    this.handleActivate = this.handleActivate.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
   }
 
@@ -28,12 +30,37 @@ class App extends React.Component {
     }));
   }
 
+  handleArchive(id) {
+    const notes = this.state.notes.map((note) => {
+      if (note.id === id) {
+        return { ...note, archived: true };
+      }
+      return note;
+    });
+    this.setState({ notes });
+  }
+
+  handleActivate(id) {
+    const notes = this.state.notes.map((note) => {
+      if (note.id === id) {
+        return { ...note, archived: false };
+      }
+      return note;
+    });
+    this.setState({ notes });
+  }
+
   render() {
     return (
       <div>
         <Navbar />
         <NoteInput onSubmit={this.handleAdd} />
-        <NoteList notes={this.state.notes} onDelete={this.handleDelete} />
+        <NoteList
+          notes={this.state.notes}
+          onDelete={this.handleDelete}
+          onArchive={this.handleArchive}
+          onActivate={this.handleActivate}
+        />
       </div>
     );
   }

@@ -11,12 +11,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       notes: getInitialData(),
+      searchString: '',
     };
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleArchive = this.handleArchive.bind(this);
     this.handleActivate = this.handleActivate.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleDelete(id) {
@@ -50,10 +52,24 @@ class App extends React.Component {
     this.setState({ notes });
   }
 
+  handleSearch(e) {
+    this.setState({ searchString: e.target.value });
+    const notes = this.state.notes.filter((note) => {
+      const title = note.title.toLowerCase();
+      const body = note.body.toLowerCase();
+      const searchString = this.state.searchString.toLowerCase();
+      return title.includes(searchString) || body.includes(searchString);
+    });
+    this.setState({ notes });
+  }
+
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar
+          onSearch={this.handleSearch}
+          searchString={this.state.searchString}
+        />
         <NoteInput onSubmit={this.handleAdd} />
         <NoteList
           notes={this.state.notes}

@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
-function Navbar() {
+// eslint-disable-next-line react/prop-types
+function Navbar({ onSearch, searchString }) {
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -65,6 +66,9 @@ function Navbar() {
             <StyledInputBase
               placeholder="Search notes..."
               inputProps={{ 'aria-label': 'search' }}
+              onChange={onSearch}
+              value={searchString}
+              autoFocus
             />
           </Search>
         </Toolbar>

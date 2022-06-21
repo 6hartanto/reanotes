@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       notes: getInitialData(),
       searchString: '',
+      filteredNotes: [],
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -21,14 +22,21 @@ class App extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  componentDidMount() {
+    this.setState({
+      filteredNotes: this.state.notes,
+    });
+  }
+
   handleDelete(id) {
     const notes = this.state.notes.filter((note) => note.id !== id);
-    this.setState({ notes });
+    this.setState({ notes, filteredNotes: notes });
   }
 
   handleAdd({ title, body }) {
     this.setState((prevState) => ({
       notes: [...prevState.notes, { id: Date.now(), title, body }],
+      filteredNotes: [...prevState.notes, { id: Date.now(), title, body }],
     }));
   }
 
@@ -39,7 +47,7 @@ class App extends React.Component {
       }
       return note;
     });
-    this.setState({ notes });
+    this.setState({ notes, filteredNotes: notes });
   }
 
   handleActivate(id) {
@@ -49,35 +57,35 @@ class App extends React.Component {
       }
       return note;
     });
-    this.setState({ notes });
+    this.setState({ notes, filteredNotes: notes });
   }
 
   handleSearch(e) {
-    this.setState({ searchString: e.target.value });
-    const notes = this.state.notes.filter((note) => {
-      const title = note.title.toLowerCase();
-      const body = note.body.toLowerCase();
-      const searchString = this.state.searchString.toLowerCase();
-      return title.includes(searchString) || body.includes(searchString);
+    const searchString = e.target.value;
+    this.setState({
+      searchString,
+      // eslint-disable-next-line react/no-unused-state
+      filteredNotes: this.state.notes.filter(
+        (note) => note.title.toLowerCase().includes(searchString.toLowerCase()),
+      ),
     });
-    this.setState({ notes });
   }
 
   render() {
     return (
-      <div>
+      <>
         <Navbar
           onSearch={this.handleSearch}
           searchString={this.state.searchString}
         />
         <NoteInput onSubmit={this.handleAdd} />
         <NoteList
-          notes={this.state.notes}
+          notes={this.state.filteredNotes}
           onDelete={this.handleDelete}
           onArchive={this.handleArchive}
           onActivate={this.handleActivate}
         />
-      </div>
+      </>
     );
   }
 }

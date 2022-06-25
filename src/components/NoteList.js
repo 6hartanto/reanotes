@@ -11,6 +11,14 @@ function NoteList({
   // eslint-disable-next-line react/prop-types
   notes, onDelete, onArchive, onActivate,
 }) {
+  // eslint-disable-next-line react/prop-types
+  if (notes.length === 0) {
+    return (
+      <Container>
+        <Header variant="h5">No notes found</Header>
+      </Container>
+    );
+  }
   return (
     <Container>
       <Header variant="h5" component="h5">
